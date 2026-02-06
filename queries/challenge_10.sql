@@ -6,7 +6,7 @@
 
 WITH CTE AS  (
     SELECT 
-        ROW_NUMBER() OVER(PARTITION BY c.category_name ORDER BY p.unit_price)AS row,
+        ROW_NUMBER() OVER(PARTITION BY c.category_name ORDER BY p.unit_price DESC)AS row,
         c.category_name,
         p.product_name
     FROM products p 
