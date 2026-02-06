@@ -6,3 +6,23 @@
 
 -- Vowels are not case-sensitive
 
+CREATE OR REPLACE FUNCTION count_vowels(varchar)
+RETURNS INT 
+IMMUTABLE 
+AS $$
+    SELECT LENGTH($1) - LENGTH(
+        REPLACE(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(
+                            REPLACE(UPPER($1), 'A', ''),
+                        'E', ''),
+                    'I', ''),
+                'O', ''),
+            'U', ''),
+        'Y', '')
+    );
+$$ LANGUAGE SQL;
+
+    
