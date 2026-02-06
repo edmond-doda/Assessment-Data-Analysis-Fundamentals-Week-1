@@ -8,3 +8,16 @@
 
 -- When calculating the order price, ignore any discounts and use the warehouse-standard price for the products only
 
+SELECT 
+    od.order_id,
+    (od.unit_price * od.quantity)::INT AS total_price
+FROM order_details od 
+JOIN orders o
+    USING(order_id)
+WHERE (od.unit_price * od.quantity) > (
+    SELECT
+        MAX(unit_price)
+    FROM products
+)
+ORDER BY o.order_id DESC
+LIMIT 10;

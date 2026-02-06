@@ -6,3 +6,16 @@
 
 -- Results should be sorted alphabetically by supplier and category.
 
+SELECT 
+    s.company_name,
+    c.category_name,
+    AVG(p.unit_price)::INT as average_price
+FROM products p
+JOIN suppliers s
+    USING(supplier_id)
+JOIN categories c
+    USING(category_id)
+WHERE c.category_name ILIKE '%m%'
+GROUP BY s.company_name, c.category_name
+ORDER BY s.company_name, c.category_name;
+
