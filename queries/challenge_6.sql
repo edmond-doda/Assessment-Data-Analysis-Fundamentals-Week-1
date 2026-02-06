@@ -7,8 +7,8 @@
 -- Results should be sorted alphabetically by supplier and category.
 
 SELECT 
-    s.company_name,
-    c.category_name,
+    s.company_name as supplier,
+    c.category_name as category,
     AVG(p.unit_price)::INT as average_price
 FROM products p
 JOIN suppliers s
