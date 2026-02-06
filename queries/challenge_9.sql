@@ -5,4 +5,4 @@
 SELECT
     "title_of_courtesy" || ' ' || "first_name" || ' ' || "last_name" AS employee_full_name
 FROM employees
-ORDER BY hire_date DESC, last_name ASC;
+ORDER BY EXTRACT(YEAR FROM hire_date) DESC, last_name ASC;

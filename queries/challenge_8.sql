@@ -10,14 +10,11 @@
 
 SELECT 
     od.order_id,
-    (od.unit_price * od.quantity)::INT AS total_price
-FROM order_details od 
-JOIN orders o
-    USING(order_id)
-WHERE (od.unit_price * od.quantity) > (
-    SELECT
-        MAX(unit_price)
-    FROM products
-)
-ORDER BY o.order_id DESC
+    SUM(p.unit_price * od.quantity)::INT AS total_price
+FROM order_details od
+JOIN products p 
+    USING(product_id)
+GROUP BY od.order_id
+HAVING SUM(p.unit_price * od.quantity) > (SELECT MAX(unit_price) FROM products)
+ORDER BY od.order_id DESC
 LIMIT 10;
